@@ -1,10 +1,11 @@
 /********** Template CSS **********/
 :root {
-    --primary: #00B98E;
-    --secondary: #FF6922;
-    --light: #EFFDF5;
-    --dark: #0E2E50;
+    --primary: rgb(255, 215, 0); /* Màu vàng */
+    --secondary: rgb(220, 20, 60); /* Màu đỏ */
+    --light: #FFF7E5; /* Màu sáng phù hợp với chủ đề Tết */
+    --dark: #8B0000; /* Màu đậm cho điểm nhấn */
 }
+
 
 .back-to-top {
     position: fixed;
@@ -34,10 +35,18 @@
 .btn {
     transition: .5s;
 }
-
-.btn.btn-primary,
-.btn.btn-secondary {
+.btn:hover {
+    background-color: var(--secondary);
     color: #FFFFFF;
+    box-shadow: 0 0 15px var(--primary);
+}
+.btn-primary {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+.btn-secondary {
+    background-color: var(--secondary) !important;
+    border-color: var(--secondary) !important;
 }
 
 .btn-square {
@@ -168,6 +177,8 @@
     }
 }
 
+
+
 .header-carousel .owl-nav {
     position: absolute;
     top: 50%;
@@ -273,6 +284,10 @@
 .property-item {
     box-shadow: 0 0 30px rgba(0, 0, 0, .08);
 }
+.property-item:hover {
+    border: 2px solid var(--secondary);
+    background-color: var(--primary);
+}
 
 .property-item img {
     transition: .5s;
@@ -283,11 +298,11 @@
 }
 
 .property-item .border-top {
-    border-top: 1px dashed rgba(0, 185, 142, .3) !important;
+    border-top: 1px dashed rgb(255, 0, 0) !important;
 }
 
 .property-item .border-end {
-    border-right: 1px dashed rgba(0, 185, 142, .3) !important;
+    border-right: 1px dashed rgb(255, 0, 0) !important;
 }
 
 
@@ -335,7 +350,7 @@
 }
 
 .testimonial-carousel .testimonial-item .border {
-    border: 1px dashed rgba(0, 185, 142, .3) !important;
+    border: 1px dashed rgb(255, 0, 0) !important;
 }
 
 .testimonial-carousel .owl-nav {
