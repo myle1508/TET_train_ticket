@@ -1,14 +1,14 @@
 package model.dao;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Date;
+
 
 import model.bean.lichtrinh;
 
 public class lichtrinh_DAO {
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	
 	private Connection getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         return DriverManager.getConnection("jdbc:mysql://localhost:3307/btap", "root", "");
@@ -30,7 +30,7 @@ public class lichtrinh_DAO {
             	lichtrinh lichtrinh = new lichtrinh();
             	lichtrinh.set_ma_lich_trinh(rs.getInt(1)) ;
             	lichtrinh.set_ma_tuyen_duong(rs.getInt(2));
-            	lichtrinh.set_thoi_gian_xuat_phat(rs.getDate(3));
+            	lichtrinh.set_thoi_gian_xuat_phat(rs.getTimestamp(3));
             	lichtrinh.set_danh_sach_ghe(rs.getString(4));
             	lichtrinh.set_so_ghe_trong(rs.getInt(5));
             	lichtrinh.set_trang_thai(rs.getBoolean(6));
@@ -63,7 +63,7 @@ public class lichtrinh_DAO {
                 lichtrinh lichtrinh = new lichtrinh();
                 lichtrinh.set_ma_lich_trinh(rs.getInt(1)) ;
             	lichtrinh.set_ma_tuyen_duong(rs.getInt(2));
-            	lichtrinh.set_thoi_gian_xuat_phat(rs.getDate(3));
+            	lichtrinh.set_thoi_gian_xuat_phat(rs.getTimestamp(3));
             	lichtrinh.set_danh_sach_ghe(rs.getString(4));
             	lichtrinh.set_so_ghe_trong(rs.getInt(5));
             	lichtrinh.set_trang_thai(rs.getBoolean(6));
@@ -96,7 +96,7 @@ public class lichtrinh_DAO {
             	lichtrinh = new lichtrinh();
                 lichtrinh.set_ma_lich_trinh(rs.getInt(1)) ;
             	lichtrinh.set_ma_tuyen_duong(rs.getInt(2));
-            	lichtrinh.set_thoi_gian_xuat_phat(rs.getDate(3));
+            	lichtrinh.set_thoi_gian_xuat_phat(rs.getTimestamp(3));
             	lichtrinh.set_danh_sach_ghe(rs.getString(4));
             	lichtrinh.set_so_ghe_trong(rs.getInt(5));
             	lichtrinh.set_trang_thai(rs.getBoolean(6));
@@ -120,7 +120,7 @@ public class lichtrinh_DAO {
             String sql = "INSERT INTO  lichtrinh ( ma_tuyen_duong , thoi_gian_xuat_phat, danh_sach_ghe, so_ghe_trong, trang_thai) VALUES (?, ?, ?, ?, ?)";
             ps = cnn.prepareStatement(sql);
             ps.setInt(1, lichtrinh.get_ma_tuyen_duong());
-            ps.setDate(2, (java.sql.Date) lichtrinh.get_thoi_gian_xuat_phat());
+            ps.setTimestamp(2, (java.sql.Timestamp) lichtrinh.get_thoi_gian_xuat_phat());
             ps.setString(3, lichtrinh.get_danh_sach_ghe());
             ps.setInt(4, lichtrinh.get_so_ghe_trong());
             ps.setBoolean(5, lichtrinh.get_trang_thai());
@@ -146,7 +146,7 @@ public class lichtrinh_DAO {
             cnn = getConnection();
             String sql = "UPDATE lichtrinh SET thoi_gian_xuat_phat = ?, so_ghe_trong = ?, trang_thai = ? WHERE ma_lich_trinh = ?";
             ps = cnn.prepareStatement(sql);
-            ps.setDate(1, (java.sql.Date) updatedlichtrinh.get_thoi_gian_xuat_phat());
+            ps.setTimestamp(1, (java.sql.Timestamp) updatedlichtrinh.get_thoi_gian_xuat_phat());
             ps.setInt(2, updatedlichtrinh.get_so_ghe_trong());
             ps.setBoolean(3, updatedlichtrinh.get_trang_thai());
             ps.setInt(4, updatedlichtrinh.get_ma_lich_trinh());
@@ -162,7 +162,7 @@ public class lichtrinh_DAO {
     }
     
     //Tìm kiếm lịch trình theo thời gian xuất phát
-    public ArrayList<lichtrinh> searchlichtrinh(String searchOption, Date searchValue) {
+    public ArrayList<lichtrinh> searchlichtrinh(String searchOption, Timestamp searchValue) {
         ArrayList<lichtrinh> resultList = new ArrayList<>();
         Connection cnn = null;
         PreparedStatement ps = null;
@@ -180,7 +180,7 @@ public class lichtrinh_DAO {
         	cnn = getConnection();
         	PreparedStatement stmt = cnn.prepareStatement(query) ;
         
-            stmt.setDate(1, (java.sql.Date) searchValue );
+            stmt.setTimestamp(1, (java.sql.Timestamp) searchValue );
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -188,7 +188,7 @@ public class lichtrinh_DAO {
 
                 lichtrinh.set_ma_lich_trinh(rs.getInt(1)) ;
             	lichtrinh.set_ma_tuyen_duong(rs.getInt(2));
-            	lichtrinh.set_thoi_gian_xuat_phat(rs.getDate(3));
+            	lichtrinh.set_thoi_gian_xuat_phat(rs.getTimestamp(3));
             	lichtrinh.set_danh_sach_ghe(rs.getString(4));
             	lichtrinh.set_so_ghe_trong(rs.getInt(5));
             	lichtrinh.set_trang_thai(rs.getBoolean(6));

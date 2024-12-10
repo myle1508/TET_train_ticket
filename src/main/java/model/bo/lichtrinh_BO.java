@@ -1,5 +1,6 @@
 package model.bo;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -29,7 +30,7 @@ public class lichtrinh_BO {
 	{
 		return lichtrinh_DAO.updatelichtrinh(updatedlichtrinh);
 	}
-	public ArrayList<lichtrinh> searchlichtrinh(String searchOption, Date searchValue) 
+	public ArrayList<lichtrinh> searchlichtrinh(String searchOption, Timestamp searchValue) 
 	{
         return lichtrinh_DAO.searchlichtrinh(searchOption, searchValue);
     }

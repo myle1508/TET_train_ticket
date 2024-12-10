@@ -4,6 +4,7 @@
 <%@ page import="model.bean.tuyenduong" %>
 <%@ page import="model.bean.lichtrinh" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.sql.Timestamp" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -165,7 +166,7 @@
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3"><%= tuyenDuong.get_gia_ve() %> VNĐ</h5>
                                         <a class="d-block h5 mb-2" href=""><%=tuyenDuong.get_diem_xuat_phat()%> - <%=tuyenDuong.get_diem_ket_thuc() %></a>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i><%=lichTrinh.get_thoi_gian_xuat_phat() %></p>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i><%=(Timestamp)lichTrinh.get_thoi_gian_xuat_phat() %></p>
                                     </div>
                                     <div class="d-flex border-top">
                                         <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i><%=tuyenDuong.get_khoang_cach()%> km</small>
