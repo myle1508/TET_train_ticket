@@ -31,6 +31,7 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+	<link href="css/styleGuests.css" rel="stylesheet">
 </head>
 
 <body>
@@ -112,32 +113,32 @@
         <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
             <div class="container">
                 <div class="row g-2">
-                    <div class="col-md-10">
+                	<form name="form1" action="guest_servlet" method="POST">
+                    <div class="col-md-12">
                         <div class="row g-2">
                             <div class="col-md-4">
-                                <input type="text" class="form-control border-0 py-3" placeholder="Search Keyword">
+                            	<label class="mx-2" for="diem-di" style="color: #FDF5E6">Điểm Xuất Phát</label>
+                                <input type="text" id="diem-di" name="diem-di" placeholder="Nhập tên tỉnh" class="form-control border-0 py-3" required>
+                                <div id="suggestions-diem-di" class="autocomplete-suggestions"></div>
                             </div>
                             <div class="col-md-4">
-                                <select class="form-select border-0 py-3">
-                                    <option selected>Property Type</option>
-                                    <option value="1">Property Type 1</option>
-                                    <option value="2">Property Type 2</option>
-                                    <option value="3">Property Type 3</option>
-                                </select>
+                            	<label class="mx-2" for="diem-di" style="color: #FDF5E6">Điểm Đến</label>
+                                <input type="text" id="diem-den" name="diem-den" placeholder="Nhập tên tỉnh" class="form-control border-0 py-3" required>
+                                <div id="suggestions-diem-den" class="autocomplete-suggestions"></div>
                             </div>
-                            <div class="col-md-4">
-                                <select class="form-select border-0 py-3">
-                                    <option selected>Location</option>
-                                    <option value="1">Location 1</option>
-                                    <option value="2">Location 2</option>
-                                    <option value="3">Location 3</option>
-                                </select>
-                            </div>
+                            <div class="col-md-3">
+                       			<label class="mx-2" for="ngay-di" style="color: #FDF5E6">Ngày đi</label>
+                        		<input type="date" id="ngay-di" name="ngay-di" class="form-control border-0 py-3" required>
+                    		</div>
+                    		<div class="col-md-1">
+                    		<label class="mx-2" style="color: #FDF5E6"></label>
+                       		<button name="submitForm" value="searchForm" class="btn btn-dark border-0 w-100 py-3">Search</button>
+                    	</div>
                         </div>
+                        
                     </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-dark border-0 w-100 py-3">Search</button>
-                    </div>
+                    
+                    </form>
                 </div>
             </div>
         </div>
@@ -909,6 +910,8 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script  src="js/jsGuest.js">
+    </script>
 </body>
 
 </html>
