@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -113,7 +114,7 @@
         <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
             <div class="container">
                 <div class="row g-2">
-                	<form name="form1" action="guest_servlet" method="POST">
+                	<form name="form1" action="guest_servlet" method="GET">
                     <div class="col-md-12">
                         <div class="row g-2">
                             <div class="col-md-4">
@@ -128,7 +129,7 @@
                             </div>
                             <div class="col-md-3">
                        			<label class="mx-2" for="ngay-di" style="color: #FDF5E6">Ngày đi</label>
-                        		<input type="date" id="ngay-di" name="ngay-di" class="form-control border-0 py-3" required>
+                        		<input type="date" id="ngay-di" name="ngay-di" class="form-control border-0 py-3" >
                     		</div>
                     		<div class="col-md-1">
                     		<label class="mx-2" style="color: #FDF5E6"></label>
