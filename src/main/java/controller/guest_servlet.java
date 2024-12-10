@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -33,16 +35,30 @@ public class guest_servlet extends HttpServlet{
  			String diemketthuc = request.getParameter("diem-den");
  			String ngaydi = request.getParameter("ngay-di");
 
- 			ArrayList<tuyenduong> tuyenDuongList =  tuyenduongBO.searchtuyenduong( "diem_xuat_phat_va_diem_ket_thuc",  diemxuatphat,  diemketthuc );
- 			if (tuyenDuongList.size() > 0) {
- 				tuyenduong tuyenDuong = tuyenDuongList.get(0);
- 	 			ArrayList<lichtrinh> lichTrinhList = lichtrinhBO.get_lich_trinh_by_ma_tuyen_duong(tuyenDuong.get_ma_tuyen_duong());
- 	 			request.setAttribute("tuyenDuong", tuyenDuong);
- 	 			request.setAttribute("lichTrinhList", lichTrinhList);
- 	 			this.forwardToDestination("/searchGuest.jsp", request, response);
- 			}else {
- 				System.out.println("Ke toi");
+ 			tuyenduong tuyenDuong =  tuyenduongBO.getTuyenDuongByDiemDenDiemDi(diemxuatphat.toLowerCase(), diemketthuc.toLowerCase());
+ 			ArrayList<lichtrinh> lichTrinhListTemp = new ArrayList<lichtrinh>();
+	 		ArrayList<lichtrinh> lichTrinhList = new ArrayList<lichtrinh>();
+	 		
+ 			if (tuyenDuong != null) {
+ 	 			lichTrinhListTemp = lichtrinhBO.get_lich_trinh_by_ma_tuyen_duong(tuyenDuong.get_ma_tuyen_duong());
+ 	 			if (!ngaydi.isEmpty()) {
+ 	 				for(lichtrinh lichTrinh : lichTrinhListTemp) {
+ 	 					LocalDateTime localDateTime = lichTrinh.get_thoi_gian_xuat_phat().toLocalDateTime();
+ 	 					// Tách ngày
+ 	 					DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+ 	 					String date = localDateTime.format(dateFormatter);
+ 	 					if (ngaydi.equals(date)) {
+ 	 						lichTrinhList.add(lichTrinh);
+ 	 					}
+ 	 				}
+ 	 			} else {
+ 	 				lichTrinhList = lichTrinhListTemp;
+ 	 			}
+ 	 			
  			}
+ 			request.setAttribute("tuyenDuong", tuyenDuong);
+	 		request.setAttribute("lichTrinhList", lichTrinhList);
+	 		this.forwardToDestination("/searchGuest.jsp", request, response);
  			
  		}
  	}

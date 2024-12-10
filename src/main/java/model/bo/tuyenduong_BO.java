@@ -31,4 +31,17 @@ public class tuyenduong_BO {
 	{
         return tuyenduong_DAO.searchtuyenduong(searchOption, searchValue, searchValue1);
     }
+	public tuyenduong getTuyenDuongByDiemDenDiemDi(String diemDen,String diemDi) {
+		ArrayList<tuyenduong> tuyenDuongList = this.getList();
+		for(tuyenduong tuyenDuong: tuyenDuongList) {
+			String diemxuatphat = tuyenDuong.get_diem_xuat_phat().toLowerCase();
+			String diemkethtuc = tuyenDuong.get_diem_ket_thuc().toLowerCase();
+			if (diemxuatphat.contains(diemDen) || diemDen.contains(diemxuatphat)) {
+				if (diemkethtuc.contains(diemDi) || diemDi.contains(diemkethtuc)) {
+					return tuyenDuong;
+				}
+			}
+		}
+		return null;
+	}
 }

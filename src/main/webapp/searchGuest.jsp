@@ -152,7 +152,8 @@
                         <%
                               	tuyenduong tuyenDuong = (tuyenduong) request.getAttribute("tuyenDuong");
               					ArrayList<lichtrinh> lichTrinhList =(ArrayList<lichtrinh> ) request.getAttribute("lichTrinhList");
-              					for (lichtrinh lichTrinh : lichTrinhList){
+                        		if (tuyenDuong != null && lichTrinhList.size() > 0){
+     	         					for (lichtrinh lichTrinh : lichTrinhList){
                         %>
                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="property-item rounded overflow-hidden">
@@ -177,6 +178,14 @@
                             </div>
                             <%
                         					}
+                        		}else {
+                        			%>
+                        			<div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px; visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+					                    <h1 class="mb-3">Không Có Tuyến Xe Nào Phù Hợp Với Tìm Kiếm Của Bạn</h1>
+					                    <p>Hãy Bắt Đầu Tìm Kiếm Tuyến Xe Khác Cho Bản Thân</p>
+					                </div>
+                        			<%
+                        		}
                                         %>
                           <!-- kết thúc vòng lặp ở đây -->
 
