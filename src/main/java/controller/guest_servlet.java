@@ -30,7 +30,7 @@ public class guest_servlet extends HttpServlet{
  	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
  		lichtrinh_BO lichtrinhBO = new lichtrinh_BO();
  		tuyenduong_BO tuyenduongBO = new tuyenduong_BO();
- 		if (request.getParameter("submitForm").equals("searchForm")) {
+ 		if (request.getParameter("actionSearch") != null ) {
  			// Xử lý form search tuyến xe ở index.jsp và searhGuest.jsp 
  			String diemxuatphat = request.getParameter("diem-di");
  			String diemketthuc = request.getParameter("diem-den");
@@ -63,7 +63,12 @@ public class guest_servlet extends HttpServlet{
  			
  		}
  		else if (request.getParameter("action1") != null) {
- 			
+ 			int malichtrinh = Integer.parseInt(request.getParameter("malichtrinh"));
+ 			lichtrinh lichTrinh = lichtrinhBO.get_lich_trinh_by_ma_lich_trinh(malichtrinh);
+ 			tuyenduong tuyenDuong = tuyenduongBO.get_tuyen_duong_By_ma_tuyen_duong(lichTrinh.get_ma_tuyen_duong());
+ 			request.setAttribute("lichTrinh", lichTrinh);
+ 			request.setAttribute("tuyenDuong", tuyenDuong);
+ 			this.forwardToDestination("/detailSchedulesGuest.jsp", request, response);
  		}
  	}
  	

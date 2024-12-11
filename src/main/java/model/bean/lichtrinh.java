@@ -1,6 +1,8 @@
 package model.bean;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class lichtrinh {
 	private int ma_lich_trinh;
@@ -59,5 +61,25 @@ public class lichtrinh {
 	public void set_trang_thai(boolean trang_thai) 
 	{
 		this.trang_thai = trang_thai;
+	}
+	
+	public String get_ngay_xuat_phat() {
+		Timestamp timestamp = this.get_thoi_gian_xuat_phat(); // Giả sử đây là Timestamp bạn có
+		LocalDateTime localDateTime = timestamp.toLocalDateTime();
+
+		// Tách ngày
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		String date = localDateTime.format(dateFormatter);
+		return date;
+	}
+	
+	public String get_gio_xuat_phat() {
+		Timestamp timestamp = this.get_thoi_gian_xuat_phat(); // Giả sử đây là Timestamp bạn có
+		LocalDateTime localDateTime = timestamp.toLocalDateTime();
+		
+		// Tách giờ
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+		String time = localDateTime.format(timeFormatter);
+		return time;
 	}
 }
