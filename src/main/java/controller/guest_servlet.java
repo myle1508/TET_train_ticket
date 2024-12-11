@@ -31,6 +31,7 @@ public class guest_servlet extends HttpServlet{
  		lichtrinh_BO lichtrinhBO = new lichtrinh_BO();
  		tuyenduong_BO tuyenduongBO = new tuyenduong_BO();
  		if (request.getParameter("submitForm").equals("searchForm")) {
+ 			// Xử lý form search tuyến xe ở index.jsp và searhGuest.jsp 
  			String diemxuatphat = request.getParameter("diem-di");
  			String diemketthuc = request.getParameter("diem-den");
  			String ngaydi = request.getParameter("ngay-di");
@@ -59,6 +60,9 @@ public class guest_servlet extends HttpServlet{
  			request.setAttribute("tuyenDuong", tuyenDuong);
 	 		request.setAttribute("lichTrinhList", lichTrinhList);
 	 		this.forwardToDestination("/searchGuest.jsp", request, response);
+ 			
+ 		}
+ 		else if (request.getParameter("action1") != null) {
  			
  		}
  	}

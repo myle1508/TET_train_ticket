@@ -7,84 +7,13 @@
 <head>
     <meta charset="utf-8">
     <title>NLN_Chuyến xe ngày tết</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
-
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet">
-    
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
-	<link href="css/styleGuests.css" rel="stylesheet">
+	<%@ include file ="headIncludeGuest.jsp"%>
 </head>
 
 <body>
     <div class="container-xxl bg-white p-0">
-        <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-        <!-- Spinner End -->
-
-
-        <!-- Navbar Start -->
-        <div class="container-fluid nav-bar bg-transparent">
-            <nav class="navbar navbar-expand-lg bg-white navbar-light py-0 px-4">
-                <a href="index.jsp" class="navbar-brand d-flex align-items-center text-center">
-                    <div class="icon p-2 me-2">
-                        <img class="img-fluid" src="img/1.png" alt="Icon" style="width: 30px; height: 30px;">
-                    </div>
-                    <h1 class="m-0 text-primary">N_L_N</h1>
-                </a>
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav ms-auto">
-                        <a href="index.jsp" class="nav-item nav-link active">Trang chủ</a>
-                        <a href="about.jsp" class="nav-item nav-link">Nhóm tôi</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Property</a>
-                            <div class="dropdown-menu rounded-0 m-0">
-                                <a href="property-list.jsp" class="dropdown-item">Property List</a>
-                                <a href="property-type.jsp" class="dropdown-item">Property Type</a>
-                                <a href="property-agent.jsp" class="dropdown-item">Property Agent</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu rounded-0 m-0">
-                                <a href="testimonial.jsp" class="dropdown-item">Testimonial</a>
-                                <a href="404.jsp" class="dropdown-item">404</a>
-                            </div>
-                        </div>
-                        <a href="contact.jsp" class="nav-item nav-link">Liên hệ</a>
-                    </div>
-                    <a href="login.jsp" class="btn btn-primary px-3 d-none d-lg-flex">Đăng nhập</a>
-                </div>
-            </nav>
-        </div>
-        <!-- Navbar End -->
-
+        
+        <%@ include file="navbarGuest.jsp" %>
 
         <!-- Header Start -->
         <div class="container-fluid header bg-white p-0">
@@ -93,14 +22,14 @@
                     <h1 class="display-5 animated fadeIn mb-4">Nào ta cùng đón <span class="text-primary">Chuyến xe ngày Tết</span> để đoàn tụ cùng gia đình</h1>
                     <p class="animated fadeIn mb-4 pb-2">Nhà là nơi để về.
                         Chuyến xe đưa bạn đến nơi hạnh phúc.</p>
-                    <a href="" class="btn btn-primary py-3 px-5 me-3 animated fadeIn">Bắt đầu hành trình</a>
+                    <a href="#search"  class="btn btn-primary py-3 px-5 me-3 animated fadeIn">Bắt đầu hành trình</a>
                 </div>
                 <div class="col-md-6 animated fadeIn">
                     <div class="owl-carousel header-carousel">
                         <div class="owl-carousel-item">
                             <img class="img-fluid" src="img/slide2.png" alt="">
                         </div>
-                        <div class="owl-carousel-item">
+                        <div class="owl-carousel-item" >
                             <img class="img-fluid" src="img/slide1.jpg" alt="">
                         </div>
                     </div>
@@ -111,8 +40,8 @@
 
 
         <!-- Search Start -->
-        <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
-            <div class="container">
+        <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;" id="search">
+            <div class="container" >
                 <div class="row g-2">
                 	<form name="form1" action="guest_servlet" method="GET">
                     <div class="col-md-12">
@@ -690,82 +619,90 @@
         <!-- Call to Action End -->
 
 
-        <!-- Team Start -->
-        <div class="container-xxl py-5">
-            <div class="container">
-                <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h1 class="mb-3">Thành viên</h1>
-                        <p>Các nhà đầu tư cho dự án</p>
-                </div>
-                <div class="row g-3">
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="team-item rounded overflow-hidden">
-                            <div class="position-relative">
-                                <img class="img-fluid" src="img/t1.jpg" alt="">
-                                <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
-                                    <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                    <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                                    <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                                </div>
-                            </div>
-                            <div class="text-center p-4 mt-3">
-                                <h5 class="fw-bold mb-0">Nguyễn Thị Quỳnh Nha</h5>
-                                <small>Thành viên 1</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="team-item rounded overflow-hidden">
-                            <div class="position-relative">
-                                <img class="img-fluid" src="img/t3.png" alt="">
-                                <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
-                                    <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                    <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                                    <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                                </div>
-                            </div>
-                            <div class="text-center p-4 mt-3">
-                                <h5 class="fw-bold mb-0">Nguyễn Thị Mỹ Lệ</h5>
-                                <small>Thành viên 2</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="team-item rounded overflow-hidden">
-                            <div class="position-relative">
-                                <img class="img-fluid" src="img/t2.jpg" alt="">
-                                <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
-                                    <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                    <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                                    <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                                </div>
-                            </div>
-                            <div class="text-center p-4 mt-3">
-                                <h5 class="fw-bold mb-0">Huỳnh Thị Thanh Nhàn</h5>
-                                <small>Thành viên 3</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="team-item rounded overflow-hidden">
-                            <div class="position-relative">
-                                <img class="img-fluid" src="img/t4.png" alt="">
-                                <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
-                                    <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                    <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                                    <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                                </div>
-                            </div>
-                            <div class="text-center p-4 mt-3">
-                                <h5 class="fw-bold mb-0">Mai Văn Hà</h5>
-                                <small>Giảng viên</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Team End -->
+		<!-- Team Start -->
+		<div class="container-xxl py-5">
+		    <div class="container">
+		        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+		            <h1 class="mb-3">Thành viên</h1>
+		            <p>Các nhà đầu tư cho dự án</p>
+		        </div>
+		        <div class="row g-3">
+		            <!-- Thành viên 1 -->
+		            <div class="col-lg-3 col-md-6 d-flex justify-content-center wow fadeInUp" data-wow-delay="0.1s">
+		                <div class="team-item rounded overflow-hidden d-flex flex-column">
+		                    <div class="position-relative">
+		                        <img class="img-fluid" src="img/t1.jpg" alt="" style="height: 250px; width:100%; object-fit: cover;">
+		                        <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
+		                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+		                            <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
+		                            <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
+		                        </div>
+		                    </div>
+		                    <div class="text-center p-4 mt-3">
+		                        <h5 class="fw-bold mb-0">Nguyễn Thị Quỳnh Nha</h5>
+		                        <small>Thành viên 1</small>
+		                    </div>
+		                </div>
+		            </div>
+		
+		            <!-- Thành viên 2 -->
+		            <div class="col-lg-3 col-md-6 d-flex justify-content-center wow fadeInUp" data-wow-delay="0.3s">
+		                <div class="team-item rounded overflow-hidden d-flex flex-column">
+		                    <div class="position-relative">
+		                        <img class="img-fluid" src="img/t3.png" alt="" style="height: 250px; width:100%; object-fit: cover;">
+		                        <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
+		                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+		                            <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
+		                            <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
+		                        </div>
+		                    </div>
+		                    <div class="text-center p-4 mt-3">
+		                        <h5 class="fw-bold mb-0">Nguyễn Thị Mỹ Lệ</h5>
+		                        <small>Thành viên 2</small>
+		                    </div>
+		                </div>
+		            </div>
+		
+		            <!-- Thành viên 3 -->
+		            <div class="col-lg-3 col-md-6 d-flex justify-content-center wow fadeInUp" data-wow-delay="0.5s">
+		                <div class="team-item rounded overflow-hidden d-flex flex-column">
+		                    <div class="position-relative">
+		                        <img class="img-fluid" src="img/t2.jpg" alt="" style="height: 250px; width:100%; object-fit: cover;">
+		                        <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
+		                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+		                            <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
+		                            <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
+		                        </div>
+		                    </div>
+		                    <div class="text-center p-4 mt-3">
+		                        <h5 class="fw-bold mb-0">Huỳnh Thị Thanh Nhàn</h5>
+		                        <small>Thành viên 3</small>
+		                    </div>
+		                </div>
+		            </div>
+		
+		            <!-- Thành viên 4 -->
+		            <div class="col-lg-3 col-md-6 d-flex justify-content-center wow fadeInUp" data-wow-delay="0.5s">
+		                <div class="team-item rounded overflow-hidden d-flex flex-column">
+		                    <div class="position-relative">
+		                        <img class="img-fluid" src="img/t4.png" alt="" style="height: 250px; width:100%; object-fit: cover;">
+		                        <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
+		                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+		                            <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
+		                            <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
+		                        </div>
+		                    </div>
+		                    <div class="text-center p-4 mt-3">
+		                        <h5 class="fw-bold mb-0">Mai Văn Hà</h5>
+		                        <small>Giảng viên</small>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<!-- Team End -->
+
 
 
         <!-- Testimonial Start -->
@@ -901,18 +838,7 @@
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-    <script  src="js/jsGuest.js">
-    </script>
+	<%@ include file ="scriptsIncludeGuest.jsp"%>
 </body>
 
 </html>
