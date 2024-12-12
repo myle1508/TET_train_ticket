@@ -8,7 +8,6 @@ import java.util.Date;
 import model.bean.lichtrinh;
 
 public class lichtrinh_DAO {
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private Connection getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         return DriverManager.getConnection("jdbc:mysql://localhost:3307/btap", "root", "");
@@ -204,7 +203,37 @@ public class lichtrinh_DAO {
         }
         return resultList;
     }
+    
+    public ArrayList<String> getAlltuyenduong() {
+        ArrayList<String> resultList = new ArrayList<>();
+        Connection cnn = null;
+        PreparedStatement ps = null;
+        String query = "";
+        
+        query = "SELECT DISTINCT diem_xuat_phat AND diem_ket_thuc FROM lichtrinh ORDER BY diem_xuat_phat ASC";
+                           
+        
+        try {
+        	cnn = getConnection();
+        	PreparedStatement stmt = cnn.prepareStatement(query) ;
+        
+            ResultSet rs = stmt.executeQuery();
 
+            while (rs.next()) {
+            	String nv1 = rs.getString("diem_xuat_phat");
+            	String nv2 = rs.getString("diem_ket_thuc");
+                resultList.add(nv1 + " - " + nv2);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}finally {
+            closeResources(ps, cnn);
+        }
+        return resultList;
+    }
+    
     private void closeResources(ResultSet rs, Statement sm, Connection cnn) {
         try {
             if (rs != null) rs.close();

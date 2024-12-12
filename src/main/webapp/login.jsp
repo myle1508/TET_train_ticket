@@ -99,7 +99,7 @@
 <body>
     <div class="login-container">
         <h1>Đăng Nhập</h1>
-        <form action="account?action=login" method="post">
+        <form action="CheckLoginServlet" method="post">
             <% String errorMessage = (String) request.getAttribute("errorMessage"); %>
             <% if (errorMessage != null) { %>
                 <div class="error"><%= errorMessage %></div>

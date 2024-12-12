@@ -118,7 +118,6 @@
 
             var httpRequest = new XMLHttpRequest();
             httpRequest.open("GET", "account?action=checkID&username=" + encodeURIComponent(account_username), true);
-            // check tên đăng nhập tồn tại
 
             httpRequest.onload = function () {
                 if (httpRequest.status === 200) {
@@ -146,13 +145,37 @@
 
             httpRequest.send();
         }
+        function checkpass() {
+            var errorField = document.getElementById("id-error1");
+            var passwordField = document.getElementById("password");
+            var passwordField1 = document.getElementById("password1");
+            var roleField = document.getElementById("role");
+            var firstnameField = document.getElementById("firstname")
+            var lastnameField = document.getElementById("lastname");
+            var submitButton = document.querySelector("button[type='submit']");
+
+            if(passwordField.value != passwordField1.value){
+                errorField.textContent = "Mật khẩu không giống.";
+            	roleField.disabled = true;
+                firstnameField.disabled = true;
+                lastnameField.disabled = true;
+                submitButton.disabled = true;
+            }
+            else{
+            	errorField.textContent = "";
+            	roleField.disabled = false;
+                firstnameField.disabled = false;
+                lastnameField.disabled = false;
+                submitButton.disabled = false;
+            }
+        };
     </script>
 </head>
 <body>
     <div class="container">
         <h2>Đăng ký</h2>
 
-        <form action="account?action=insert" method="post">
+        <form action="admin?action=insert" method="post">
             <input type="hidden" name="action" value="add">
             
             <div class="input-group">
@@ -167,7 +190,7 @@
 			</div>
 			<div class="input-group">
 			    <label for="password">Lặp lại mật khẩu:</label>
-			    <input type="password" id="password1" name="password1" disabled required>
+			    <input type="password" id="password1" name="password1" onchange="checkpass()" disabled required>
 			</div>
             
             <div class="input-group">

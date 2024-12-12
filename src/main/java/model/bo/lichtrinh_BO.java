@@ -33,4 +33,8 @@ public class lichtrinh_BO {
 	{
         return lichtrinh_DAO.searchlichtrinh(searchOption, searchValue);
     }
+	public ArrayList<String> getAlltuyenduong() 
+	{
+		return lichtrinh_DAO.getAlltuyenduong();
+	}
 }

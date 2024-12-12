@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import model.bean.nguoidung;
+import model.bean.tuyenduong;
 
 public class nguoidung_DAO {
 	private Connection getConnection() throws ClassNotFoundException, SQLException {
@@ -12,9 +13,9 @@ public class nguoidung_DAO {
     }
 	
 	// Kiểm tra đăng nhập nè
-    public boolean isExistUser(String username, String password) {
-        boolean ktra = false;
-        Connection cnn = null;
+    public int isExistUser(String username, String password) {
+    	int role = 0;
+    	Connection cnn = null;
         Statement sm = null;
         ResultSet rs = null;
         try {
@@ -23,8 +24,8 @@ public class nguoidung_DAO {
             String sql = "SELECT * FROM nguoidung";
             rs = sm.executeQuery(sql);
             while (rs.next()) {
-                if (username.equals(rs.getString(1)) && password.equals(rs.getString(2))) {
-                    ktra = true;
+                if (username.equals(rs.getString(2)) && password.equals(rs.getString(3))) {
+                    role = Integer.parseInt(rs.getString(7)) ;
                     break;
                 }
             }
@@ -33,7 +34,7 @@ public class nguoidung_DAO {
         } finally {
             closeResources(rs, sm, cnn);
         }
-        return ktra;
+        return role ;
     }
     
     // Lấy danh sách người dùng
@@ -131,6 +132,39 @@ public class nguoidung_DAO {
         return nguoidung;
     }
     
+    // Lấy người dùng bằng tên đăng nhập
+    public nguoidung get_nguoi_dung_By_ten_dang_nhap(String id) {
+    	nguoidung nguoidung = null;
+        Connection cnn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            cnn = getConnection();
+            String sql = "SELECT * FROM nguoidung WHERE ten_dang_nhap = ?";
+            ps = cnn.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+            	nguoidung = new nguoidung();
+
+                nguoidung.set_ma_nguoi_dung(rs.getInt(1));
+            	nguoidung.set_ten_dang_nhap(rs.getString(2));
+            	nguoidung.set_mat_khau(rs.getString(3));
+            	nguoidung.set_ho_ten(rs.getString(4));
+            	nguoidung.set_email(rs.getString(5));
+            	nguoidung.set_so_dien_thoai(rs.getString(6));
+            	nguoidung.set_vai_tro(rs.getInt(7));
+            }
+        } catch (Exception e) {
+            System.out.println("Error in getnguoidungByten_dang_nhap: " + e.getMessage());
+        } finally {
+            closeResources(rs, ps, cnn);
+        }
+        return nguoidung;
+    }
+    
     // Tìm kiếm người dùng theo họ tên, email, số điện thoại
     public ArrayList<nguoidung> searchnguoidung(String searchOption, String searchValue) {
         ArrayList<nguoidung> resultList = new ArrayList<>();
@@ -181,7 +215,32 @@ public class nguoidung_DAO {
         }
         return resultList;
     }
+    
+    public boolean updatenguoidung(nguoidung updatednguoidung) {
+        boolean isUpdated = false;
+        Connection cnn = null;
+        PreparedStatement ps = null;
 
+        try {
+            cnn = getConnection();
+            String sql = "UPDATE nguoidung SET mat_khau = ?, ho_ten = ?, email = ?, so_dien_thoai = ? WHERE ma_nguoi_dung = ?";
+            ps = cnn.prepareStatement(sql);
+            ps.setString(1, updatednguoidung.get_mat_khau());
+            ps.setString(2, updatednguoidung.get_ho_ten());
+            ps.setString(3, updatednguoidung.get_email());
+            ps.setString(4, updatednguoidung.get_so_dien_thoai());
+            ps.setInt(5, updatednguoidung.get_ma_nguoi_dung());
+
+            isUpdated = ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            System.out.println("Error in updatenguoidung: " + e.getMessage());
+        } finally {
+            closeResources(ps, cnn);
+        }
+
+        return isUpdated;
+    }
+    
     private void closeResources(ResultSet rs, Statement sm, Connection cnn) {
         try {
             if (rs != null) rs.close();
