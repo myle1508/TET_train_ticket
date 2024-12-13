@@ -4,7 +4,7 @@ public class ve {
 	private int ma_ve;
 	private int ma_nguoi_dung;
 	private int ma_lich_trinh;
-	private int so_ghe;
+	private String so_ghe;
 	private boolean trang_thai;
 	
 	public int get_ma_ve()
@@ -19,7 +19,7 @@ public class ve {
 	{
 		return ma_lich_trinh;
 	}
-	public int get_so_ghe()
+	public String get_so_ghe()
 	{
 		return so_ghe;
 	}
@@ -40,7 +40,7 @@ public class ve {
 	{
 		this.ma_lich_trinh = ma_lich_trinh;
 	}
-	public void set_so_ghe(int so_ghe) 
+	public void set_so_ghe(String so_ghe) 
 	{
 		this.so_ghe = so_ghe;
 	}

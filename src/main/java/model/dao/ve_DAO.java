@@ -33,7 +33,7 @@ public class ve_DAO {
             	ve.set_ma_ve(rs.getInt(1));
             	ve.set_ma_nguoi_dung(rs.getInt(2));
             	ve.set_ma_lich_trinh(rs.getInt(3));
-            	ve.set_so_ghe(rs.getInt(4));
+            	ve.set_so_ghe(rs.getString(4));
             	ve.set_trang_thai(rs.getBoolean(5));
                 result.add(ve);
             }
@@ -58,7 +58,7 @@ public class ve_DAO {
             ps = cnn.prepareStatement(sql);
             ps.setInt(1, ve.get_ma_nguoi_dung());
             ps.setInt(2, ve.get_ma_lich_trinh());
-            ps.setInt(3, ve.get_so_ghe());
+            ps.setString(3, ve.get_so_ghe());
             ps.setBoolean(4, ve.get_trang_thai());
 
             int rows = ps.executeUpdate();
@@ -91,7 +91,7 @@ public class ve_DAO {
                 ve.set_ma_ve(rs.getInt(1));
             	ve.set_ma_nguoi_dung(rs.getInt(2));
             	ve.set_ma_lich_trinh(rs.getInt(3));
-            	ve.set_so_ghe(rs.getInt(4));
+            	ve.set_so_ghe(rs.getString(4));
             	ve.set_trang_thai(rs.getBoolean(5));
             }
         } catch (Exception e) {
@@ -121,7 +121,7 @@ public class ve_DAO {
                 ve.set_ma_ve(rs.getInt(1));
             	ve.set_ma_nguoi_dung(rs.getInt(2));
             	ve.set_ma_lich_trinh(rs.getInt(3));
-            	ve.set_so_ghe(rs.getInt(4));
+            	ve.set_so_ghe(rs.getString(4));
             	ve.set_trang_thai(rs.getBoolean(5));
             }
         } catch (Exception e) {
@@ -151,7 +151,7 @@ public class ve_DAO {
                 ve.set_ma_ve(rs.getInt(1));
             	ve.set_ma_nguoi_dung(rs.getInt(2));
             	ve.set_ma_lich_trinh(rs.getInt(3));
-            	ve.set_so_ghe(rs.getInt(4));
+            	ve.set_so_ghe(rs.getString(4));
             	ve.set_trang_thai(rs.getBoolean(5));
             }
         } catch (Exception e) {

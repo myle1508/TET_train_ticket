@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.bean.lichtrinh;
 import model.bean.tuyenduong;
@@ -73,6 +74,17 @@ public class guest_servlet extends HttpServlet{
  	}
  	
  	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+ 		lichtrinh_BO lichtrinhBO = new lichtrinh_BO();
+ 		tuyenduong_BO tuyenduongBO = new tuyenduong_BO();
+ 		HttpSession session = request.getSession(false); 
+ 		if (request.getParameter("submitForm") != null ) {
+ 			if (request.getParameter("submitForm").equals("payForm")) {
+ 				String malichtrinh = request.getParameter("malichtrinh");
+ 				String soluongghe = request.getParameter("soluongghe_hidden");
+ 				String soghe = request.getParameter("soghe_hidden");
+// 				String[] numbers = soghe.split(",\\s*");
+ 				
+ 			}
+ 		}
  	}
 }

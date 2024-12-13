@@ -128,31 +128,38 @@
 							                    <span>Đang chọn</span>
 							                </div>
                     				</div>
-
-                  					<div class="bg-white rounded p-4 mt-2" style="border: 1px dashed rgba(0, 185, 142, .3)">
-                  						<h5>Thông tin chuyến đi</h5>
-                  						<div class="row justify-content-center">
-                  							<div class="col-md-6">Tuyến xe</div>
-                  							<div class="col-md-6 text-end" style="color: black;"><%= tuyenDuong.get_diem_xuat_phat()%> - <%= tuyenDuong.get_diem_ket_thuc() %></div>
-                  						</div>
-                  						<div class="row justify-content-center">
-                  							<div class="col-md-6">Thời gian xuất phát</div>
-                  							<div class="col-md-6 text-end" style="color: #00613D;"><%= lichTrinh.get_gio_xuat_phat() %>  <%= lichTrinh.get_ngay_xuat_phat() %></div>
-                  						</div>
-                  						<div class="row justify-content-center">
-                  							<div class="col-md-6">Số lượng ghế</div>
-                  							<div class="col-md-6 text-end" id="soluongghe" style="color: black;"></div>
-                  						</div>
-                  						<div class="row justify-content-center">
-                  							<div class="col-md-6">Số ghế</div>
-                  							<div class="col-md-6 text-end" id="soghe" style="color: #00613D;"></div>
-                  						</div>
-                  						<div class="row justify-content-center">
-                  							<div class="col-md-6">Tổng tiền chuyến đi</div>
-                  							<div class="col-md-6 text-end" id="tongtien" style="color: #ef5222;"></div>
-                  						</div>
-                  					</div>
-                    				
+									<form name="form1" action="guest_servlet" method="POST" onsubmit="return validateForm()">
+	                  					<div class="bg-white rounded p-4 mt-2" style="border: 1px dashed rgba(0, 185, 142, .3)">
+	                  						<h5>Thông tin chuyến đi</h5>
+	                  						<div class="row justify-content-center">
+	                  							<div class="col-md-6">Tuyến xe</div>
+	                  							<div class="col-md-6 text-end" style="color: black;"><%= tuyenDuong.get_diem_xuat_phat()%> - <%= tuyenDuong.get_diem_ket_thuc() %></div>
+	                  						</div>
+	                  						<div class="row justify-content-center">
+	                  							<div class="col-md-6">Thời gian xuất phát</div>
+	                  							<div class="col-md-6 text-end" style="color: #00613D;"><%= lichTrinh.get_gio_xuat_phat() %>  <%= lichTrinh.get_ngay_xuat_phat() %></div>
+	                  						</div>
+	                  						<div class="row justify-content-center">
+	                  							<div class="col-md-6">Số lượng ghế</div>
+	                  							<div class="col-md-6 text-end" id="soluongghe" name="soluongghe" style="color: black;"></div>
+	                  						</div>
+	                  						<div class="row justify-content-center">
+	                  							<div class="col-md-6">Số ghế</div>
+	                  							<div class="col-md-6 text-end" id="soghe" name="soghe" style="color: #00613D;"></div>
+	                  						</div>
+	                  						<div class="row justify-content-center">
+	                  							<div class="col-md-6">Tổng tiền chuyến đi</div>
+	                  							<div class="col-md-6 text-end" id="tongtien" name="tongtien" style="color: #ef5222;"></div>
+	                  						</div>
+	                  					</div>
+	                  					
+	                  					<div class="text-center  mt-4">
+	                  						<input type="text" name="malichtrinh" value="<%= lichTrinh.get_ma_lich_trinh() %>" hidden>
+	                  						<input type="hidden" id="soluongghe_hidden" name="soluongghe_hidden">
+	                  						<input type="hidden" id="soghe_hidden" name="soghe_hidden">
+	                  						<button name="submitForm" value="payForm" class="btn btn-primary py-3 px-5 me-3 animated fadeIn">Thanh Toán</button>
+	                  					</div>
+                    				</form>
 					            </div>
 					        </div>
                         </div>
@@ -200,21 +207,40 @@
 		    function updateGhichu() {
 		        const selectedSofas = document.querySelectorAll('.sofa.selected');
 		        const selectedSofaIds = [];
-		
+		        const processedSofaIds = [];
+
 		        selectedSofas.forEach((sofa) => {
-		            // Lấy ID của ghế trong danh sách, ví dụ G14, G9, ...
+		            // Lấy ID của ghế, ví dụ G14, G9, ...
 		            const sofaId = sofa.textContent.trim();
 		            selectedSofaIds.push(sofaId); // Thêm ID ghế vào danh sách
+
+		            /* // Xử lý: bỏ chữ G và trừ vị trí ghế đi 1
+		            const position = parseInt(sofaId.replace('G', ''), 10) - 1;
+		            processedSofaIds.push(position); // Lưu vị trí đã xử lý */
 		        });
-		
-		        soluongghe.textContent = selectedSofaIds.length + " ghế"; // Cập nhật số lượng ghế
-		        soghe.textContent = selectedSofaIds.join(', '); // Cập nhật danh sách ghế, cách nhau bằng dấu phẩy
-		        sotien = selectedSofaIds.length * <%= tuyenDuong.get_gia_ve()%>;
-		        tongtien.textContent = sotien + ".000 VND";
+
+		        // Cập nhật nội dung hiển thị
+		        soluongghe.textContent = selectedSofaIds.length + " ghế"; // Số lượng ghế
+		        soghe.textContent = selectedSofaIds.join(', '); // Danh sách ghế
+		        sotien = selectedSofaIds.length * <%= tuyenDuong.get_gia_ve() %>;
+		        tongtien.textContent = sotien + " VND"; // Tổng tiền
+
+		        // Cập nhật giá trị cho các trường hidden input
+		        document.getElementById('soluongghe_hidden').value = selectedSofaIds.length; // Số lượng ghế
+		        document.getElementById('soghe_hidden').value = processedSofaIds.join(', '); // Danh sách ghế đã xử lý
 		    }
+
+
 		});
 
-
+		function validateForm(){
+			var soghe_hidden = document.form1.soghe_hidden.value;
+			if (soghe_hidden === ""){
+				alert("Bạn hãy chọn ghế trước khi thanh toán");
+				return false;
+			}
+			return true;
+		}
     </script>
 </body>
 
