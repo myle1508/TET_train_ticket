@@ -1,6 +1,6 @@
 package model.bean;
 
-public class ve {
+public class ve {	
 	private int ma_ve;
 	private int ma_nguoi_dung;
 	private int ma_lich_trinh;

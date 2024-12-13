@@ -42,7 +42,7 @@
         <p>We encountered an error while processing your request.</p>
         <p><%= request.getAttribute("errorMessage") != null ? request.getAttribute("errorMessage") : "An unexpected error occurred." %></p>
         <p>
-            <a href="form_search.jsp">Go back to Home</a>
+            <a href="List_nguoi_dung.jsp">Go back to Home</a>
         </p>
     </div>
 </body>

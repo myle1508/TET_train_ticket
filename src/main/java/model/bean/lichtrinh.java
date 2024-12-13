@@ -1,11 +1,11 @@
 package model.bean;
 
-import java.util.Date;
-
+import java.sql.Timestamp;
 public class lichtrinh {
+
 	private int ma_lich_trinh;
 	private int ma_tuyen_duong;
-	private Date thoi_gian_xuat_phat;
+	private Timestamp thoi_gian_xuat_phat;
 	private String danh_sach_ghe;
 	private int so_ghe_trong;
 	private boolean trang_thai;
@@ -19,7 +19,7 @@ public class lichtrinh {
 	{
 		return ma_tuyen_duong;
 	}
-	public Date get_thoi_gian_xuat_phat()
+	public Timestamp get_thoi_gian_xuat_phat()
 	{
 		return thoi_gian_xuat_phat;
 	}
@@ -35,7 +35,7 @@ public class lichtrinh {
 	{
 		return trang_thai;
 	}
-	
+
 	public void set_ma_lich_trinh(int ma_lich_trinh) 
 	{
 		this.ma_lich_trinh = ma_lich_trinh;
@@ -44,7 +44,7 @@ public class lichtrinh {
 	{
 		this.ma_tuyen_duong = ma_tuyen_duong;
 	}
-	public void set_thoi_gian_xuat_phat(Date thoi_gian_xuat_phat) 
+	public void set_thoi_gian_xuat_phat(Timestamp thoi_gian_xuat_phat) 
 	{
 		this.thoi_gian_xuat_phat = thoi_gian_xuat_phat;
 	}

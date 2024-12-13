@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Logout</title>
+    <link rel="icon" type="image/x-icon" href="img/1.png">
 </head>
 <body>
     <%

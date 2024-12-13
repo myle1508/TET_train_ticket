@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Đăng Nhập</title>
+    <link rel="icon" type="image/x-icon" href="img/1.png">
     <style>
-        /* Đặt ảnh nền cho body */
         body {
             font-family: 'Arial', sans-serif;
-            background-image: url('img/slide1.jpg'); /* Đường dẫn đến ảnh nền của bạn */
+            background-image: url('img/slide1.jpg'); 
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -21,7 +21,6 @@
             position: relative;
         }
 
-        /* Lớp phủ mờ trên ảnh nền */
         body::after {
             content: '';
             position: absolute;
@@ -29,11 +28,10 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.5); /* Màu mờ (điều chỉnh độ mờ tại đây) */
-            z-index: -1; /* Đặt lớp phủ phía dưới nội dung */
+            background: rgba(0, 0, 0, 0.5); 
+            z-index: -1; 
         }
 
-        /* Tạo box trung tâm */
         .login-container {
             background-color: #ffffff;
             padding: 30px 40px;
@@ -51,7 +49,6 @@
             display: flex;
             flex-direction: column;
         }
-        /* Style cho input */
         .login-container input[type="text"],
         .login-container input[type="password"] {
             padding: 12px 15px;
@@ -61,7 +58,6 @@
             font-size: 16px;
             box-sizing: border-box;
         }
-        /* Style cho nút */
         .login-container input[type="submit"] {
             background-color: #4CAF50;
             color: white;
@@ -76,7 +72,6 @@
         .login-container input[type="submit"]:hover {
             background-color: #45a049;
         }
-        /* Style cho liên kết đăng ký */
         .login-container a.register {
             display: inline-block;
             margin-top: 15px;
@@ -88,7 +83,6 @@
         .login-container a.register:hover {
             color: #2e7d32;
         }
-        /* Style cho thông báo lỗi */
         .login-container .error {
             color: red;
             margin-bottom: 10px;
@@ -108,7 +102,7 @@
             <input type="password" name="password" placeholder="Mật khẩu" required>
             <input type="submit" value="Đăng Nhập">
         </form>
-        <a href="form_add.jsp" class="register">Đăng ký tài khoản mới</a>
+        <a href="register.jsp" class="register">Đăng ký tài khoản mới</a>
     </div>
 </body>
 </html>

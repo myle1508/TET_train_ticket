@@ -46,6 +46,47 @@ public class tuyenduong_DAO {
         return result;
     }
     
+    // check tuyến đường tồn tại
+    public boolean checkRouteExists(String diemXuatPhat, String diemKetThuc) throws ClassNotFoundException {
+        String query = "SELECT COUNT(*) FROM tuyenduong WHERE diem_xuat_phat = ? AND diem_ket_thuc = ?";
+        Connection cnn = null; 
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            cnn = getConnection(); 
+
+            stmt = cnn.prepareStatement(query);
+            stmt.setString(1, diemXuatPhat);
+            stmt.setString(2, diemKetThuc);
+
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0; 
+            }
+        } 
+        catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (cnn != null) {
+                    cnn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false; 
+    }
+
+    
     // Thêm tuyến đường
     public boolean inserttuyenduong(tuyenduong tuyenduong) {
         boolean isInserted = false;

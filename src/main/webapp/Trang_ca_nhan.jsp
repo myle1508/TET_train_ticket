@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Thông tin người dùng</title>
+    <link rel="icon" type="image/x-icon" href="img/1.png">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -95,15 +96,14 @@
             if (nguoidung != null) {
         %>
             <div class="detail">
-                <label>Username:</label> <span><%= nguoidung.get_ten_dang_nhap()%></span>
+                <label>Tên đăng nhập:</label> <span><%= nguoidung.get_ten_dang_nhap()%></span>
             </div>
             <div class="detail">
                 <label>Email:</label> <span><%= nguoidung.get_email()%></span>
             </div>
             <div class="detail">
-                <label>Địa chỉ:</label> <span><%= nguoidung.get_so_dien_thoai()%></span>
+                <label>Số điện thoại:</label> <span><%= nguoidung.get_so_dien_thoai()%></span>
             </div>
-            
         <%
             } else {
         %>
@@ -113,8 +113,8 @@
         %>
     </div>
     <div class="edit-link-container">
-        <a class="edit-link" href="UsersServlet?action=editform&username=<%= nguoidung != null ? nguoidung.get_ten_dang_nhap() : "" %>">Chỉnh sửa thông tin</a>
-        <a class="edit-link" href="UsersServlet?action=changepasswordform&username=<%= nguoidung != null ? nguoidung.get_ten_dang_nhap() : "" %>">Đổi mật khẩu</a>
+        <a class="edit-link" href="admin?action=update_nguoi_dung&ten_dang_nhap=<%= nguoidung != null ? nguoidung.get_ten_dang_nhap() : "" %>">Chỉnh sửa thông tin</a>
+        <a class="edit-link" href="admin?action=doi_mk&ten_dang_nhap=<%= nguoidung != null ? nguoidung.get_ten_dang_nhap() : "" %>">Đổi mật khẩu</a>
     </div>
     <div class="footer">
     <a href="javascript:history.back()">Quay lại trang trước</a>

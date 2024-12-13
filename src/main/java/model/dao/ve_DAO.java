@@ -102,9 +102,9 @@ public class ve_DAO {
         return ve;
     }
     
-    // Lấy vé với mã người mua nha -> Xem tất cả các vé của 1 người dùng đã mua
-    public ve get_ve_By_ma_nguoi_dung(int id) {
-    	ve ve = null;
+ // Lấy vé với mã người mua -> Xem tất cả các vé của 1 người dùng đã mua
+    public ArrayList<ve> get_ve_By_ma_nguoi_dung(int id) {
+        ArrayList<ve> veList = new ArrayList<>(); 
         Connection cnn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -115,26 +115,27 @@ public class ve_DAO {
             ps = cnn.prepareStatement(sql);
             ps.setInt(1, id);
             rs = ps.executeQuery();
-
-            if (rs.next()) {
-            	ve = new ve();
-                ve.set_ma_ve(rs.getInt(1));
-            	ve.set_ma_nguoi_dung(rs.getInt(2));
-            	ve.set_ma_lich_trinh(rs.getInt(3));
-            	ve.set_so_ghe(rs.getInt(4));
-            	ve.set_trang_thai(rs.getBoolean(5));
+            while (rs.next()) {
+                ve v = new ve();
+                v.set_ma_ve(rs.getInt(1));
+                v.set_ma_nguoi_dung(rs.getInt(2));
+                v.set_ma_lich_trinh(rs.getInt(3));
+                v.set_so_ghe(rs.getInt(4));
+                v.set_trang_thai(rs.getBoolean(5));
+                veList.add(v);
             }
         } catch (Exception e) {
-            System.out.println("Error in getveById: " + e.getMessage());
+            System.out.println("Error in get_ve_By_ma_nguoi_dung: " + e.getMessage());
         } finally {
             closeResources(rs, ps, cnn);
         }
-        return ve;
+        return veList; 
     }
+
     
     // Lấy vé với mã lịch trình -> Xem tất cả các vé có cùng lịch trình
-    public ve get_ve_By_ma_lich_trinh(int id) {
-    	ve ve = null;
+    public ArrayList<ve> get_ve_By_ma_lich_trinh(int id) {
+        ArrayList<ve> veList = new ArrayList<>(); // Danh sách vé trả về
         Connection cnn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -146,21 +147,23 @@ public class ve_DAO {
             ps.setInt(1, id);
             rs = ps.executeQuery();
 
-            if (rs.next()) {
-            	ve = new ve();
-                ve.set_ma_ve(rs.getInt(1));
-            	ve.set_ma_nguoi_dung(rs.getInt(2));
-            	ve.set_ma_lich_trinh(rs.getInt(3));
-            	ve.set_so_ghe(rs.getInt(4));
-            	ve.set_trang_thai(rs.getBoolean(5));
+            while (rs.next()) {
+                ve v = new ve();
+                v.set_ma_ve(rs.getInt(1));
+                v.set_ma_nguoi_dung(rs.getInt(2));
+                v.set_ma_lich_trinh(rs.getInt(3));
+                v.set_so_ghe(rs.getInt(4));
+                v.set_trang_thai(rs.getBoolean(5));
+                veList.add(v);
             }
         } catch (Exception e) {
-            System.out.println("Error in getveById: " + e.getMessage());
+            System.out.println("Error in get_ve_By_ma_lich_trinh: " + e.getMessage());
         } finally {
             closeResources(rs, ps, cnn);
         }
-        return ve;
+        return veList; 
     }
+
 
     // Này là update vé về trạng thái khi mà bị hủy hay chi đó chớ không cần xóa cũng được nha
     public boolean updateve(ve updatedve) {

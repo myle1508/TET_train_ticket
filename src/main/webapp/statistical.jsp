@@ -1,66 +1,164 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.List" %>
+<%@ page import="java.util.Map, java.util.List" %>
+<%@ page import="java.util.Iterator" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thống Kê Tổng Hợp</title>
+    <title>Thống Kê Doanh Thu</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f7f9fc;
-            color: #333;
-            margin: 0;
-            padding: 20px;
+		    font-family: 'Arial', sans-serif;
+		    background-color: #d0f2e7;
+		    color: #333;
+		    margin: 0;
+		    padding: 0;
+		    display: flex;
+		    flex-direction: column;
+		    align-items: center;
+		    justify-content: flex-start; /* Đẩy các phần tử lên trên */
+		    height: 100vh;
+		    width: 100%;
+		    box-sizing: border-box;
+		}
+		
+		h1, h2 {
+		    text-align: center;
+		    color: #4CAF50;
+		    font-weight: bold;
+		    margin: 10px 0;
+		}
+		
+		h2 {
+		    color: #ff9800;
+		}
+		
+		form {
+		    background-color: #fdfdfd; /* Màu trắng nhẹ */
+		    border-radius: 8px;
+		    padding: 15px;
+		    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+		    display: flex;
+		    flex-direction: column;
+		    align-items: center;
+		    justify-content: center;
+		    width: 100%; /* Chiều rộng tối đa */
+		    max-width: 700px; /* Giới hạn chiều rộng */
+		    margin-bottom: 20px;
+		}
+		
+		select, input[type="submit"] {
+		    padding: 8px 0;
+		    margin: 10px 0;
+		    font-size: 14px;
+		    border-radius: 5px;
+		    border: 1px solid #ddd;
+		    width: 100%; /* Chiều rộng tự động co giãn */
+		    max-width: 200px; /* Đặt chiều rộng tối đa */
+		    background-color: #ff7f50; /* Màu trắng sáng */
+		    transition: all 0.3s ease;
+		    text-align: center;
+		    color: #333; /* Màu chữ đậm hơn */
+		}
+		
+		select:hover, input[type="submit"]:hover {
+		    background-color: #e07b3c; /* Màu vàng nhạt khi hover */
+		    color: #000; /* Màu chữ đen rõ ràng */
+		}
+		
+		select:focus, input[type="submit"]:focus {
+		    border: 1px solid #ffa500; /* Màu cam nhấn mạnh */
+		    outline: none;
+		    box-shadow: 0 0 5px rgba(255, 165, 0, 0.5); /* Ánh sáng khi focus */
+		}
+
+		
+		table {
+		    width: 90%; /* Đảm bảo bảng không quá lớn */
+		    max-width: 800px; /* Giới hạn chiều rộng */
+		    border-collapse: collapse;
+		    margin: 20px 0;
+		    background-color: #fff;
+		    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+		    border-radius: 8px;
+		    text-align: center;
+		}
+		
+		th, td {
+		    padding: 8px 5px; /* Giảm kích thước padding */
+		    font-size: 14px; /* Giảm kích thước chữ */
+		}
+		
+		th {
+		    background-color: #ccc;
+		    font-weight: bold;
+		}
+		
+		tr:nth-child(even) {
+		    background-color: #f9f9f9;
+		}
+		
+		tr:hover {
+		    background-color: #f1f1f1;
+		    cursor: pointer;
+		}
+		
+		canvas {
+		    width: 90%; /* Giảm chiều rộng */
+		    max-width: 700px; /* Giới hạn chiều rộng */
+		    height: auto;
+		    margin-top: 20px;
+		    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+		    border-radius: 8px;
+		}
+		
+		.section-container {
+		    width: 90%; /* Đảm bảo mọi thứ luôn gọn */
+		    max-width: 800px;
+		    padding: 10px 0;
+		    margin-top: 10px;
+		    text-align: center;
+		}
+
+
+        .top-routes {
+            margin-top: 30px;
         }
-        
-        h1, h2 {
-            color: #2c3e50;
-            margin-bottom: 15px;
+
+        .rank-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        table th, table td {
-            border: 1px solid #e1e4ea;
-            padding: 12px;
-            text-align: left;
-        }
-        table th {
-            background-color: #34495e;
-            color: #ecf0f1;
-        }
-        table tbody tr:nth-child(even) {
-            background-color: #f2f4f8;
-        }
-        .no-data {
-            text-align: center;
-            font-style: italic;
-            color: #aaa;
-        }
-        .chart-container {
-            width: 90%;
-            max-width: 800px;
-            margin: 25px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        .table-container {
-            margin-bottom: 40px;
-        }
+
+        .rank1 { color: gold; }
+        .rank2 { color: silver; }
+        .rank3 { color: #cd7f32; }
+
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h1>Thống Kê Tổng Hợp</h1>
-    <%-- Revenue by Date Chart --%>
+	<div class="section-container">
+        <h2>Doanh Thu Theo Ngày/Tháng/Năm</h2>
+        <form method="get" action="thong-ke">
+            <label for="period">Chọn khoảng thời gian:</label>
+            <select id="period" name="period">
+                <option value="%Y-%m-%d">Theo ngày</option>
+                <option value="%Y-%m">Theo tháng</option>
+                <option value="%Y">Theo năm</option>
+            </select>
+            <input type="submit" value="Xem">
+        </form>
+    </div>
+    <div class="section-container">
+        <h2>Biểu Đồ Doanh Thu Theo </h2>
+        <div class="chart-container">
+            <canvas id="revenueChart"></canvas>
+        </div>
+    </div>
+
     <%
         Map<String, Double> revenueByDate = (Map<String, Double>) request.getAttribute("revenueByDate");
         StringBuilder dates = new StringBuilder();
@@ -72,10 +170,7 @@
             }
         }
     %>
-    <h2>Biểu Đồ Doanh Thu Theo Ngày</h2>
-    <div class="chart-container">
-        <canvas id="revenueChart"></canvas>
-    </div>
+
     <script>
         var ctx = document.getElementById('revenueChart').getContext('2d');
         var revenueChart = new Chart(ctx, {
@@ -115,118 +210,78 @@
                 }
             }
         });
+
+        window.addEventListener('resize', function () {
+            revenueChart.resize();
+        });
     </script>
-    <%-- Revenue by Date Table --%>
-    <div class="table-container">
-        <h2>Doanh Thu Theo Ngày</h2>
+
+    <div class="section-container">
+        <h2>Top 3 Người Mua Vé Nhiều Nhất</h2>
         <table>
             <thead>
                 <tr>
-                    <th>Ngày</th>
-                    <th>Doanh Thu (VNĐ)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% if (revenueByDate != null && !revenueByDate.isEmpty()) { %>
-                    <% for (Map.Entry<String, Double> entry : revenueByDate.entrySet()) { %>
-                        <tr>
-                            <td><%= entry.getKey() %></td>
-                            <td><%= String.format("%,.0f", entry.getValue()) %></td>
-                        </tr>
-                    <% } %>
-                <% } else { %>
-                    <tr>
-                        <td colspan="2" class="no-data">Không có dữ liệu</td>
-                    </tr>
-                <% } %>
-            </tbody>
-        </table>
-    </div>
-    <%-- Top Selling Products Table --%>
-    <% 
-        Map<String, Integer> topSellingProducts = (Map<String, Integer>) request.getAttribute("topSellingProducts");
-    %>
-    <div class="table-container">
-        <h2>Sản Phẩm Bán Chạy</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Sản Phẩm</th>
-                    <th>Số Lượng Bán</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% if (topSellingProducts != null && !topSellingProducts.isEmpty()) { %>
-                    <% for (Map.Entry<String, Integer> entry : topSellingProducts.entrySet()) { %>
-                        <tr>
-                            <td><%= entry.getKey() %></td>
-                            <td><%= entry.getValue() %></td>
-                        </tr>
-                    <% } %>
-                <% } else { %>
-                    <tr>
-                        <td colspan="2" class="no-data">Không có dữ liệu</td>
-                    </tr>
-                <% } %>
-            </tbody>
-        </table>
-    </div>
-    <%-- Product Count by Category Table --%>
-    <% 
-        Map<String, Integer> productCountByCategory = (Map<String, Integer>) request.getAttribute("productCountByCategory");
-    %>
-    <div class="table-container">
-        <h2>Số Lượng Sản Phẩm Theo Danh Mục</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Danh Mục</th>
-                    <th>Số Lượng</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% if (productCountByCategory != null && !productCountByCategory.isEmpty()) { %>
-                    <% for (Map.Entry<String, Integer> entry : productCountByCategory.entrySet()) { %>
-                        <tr>
-                            <td><%= entry.getKey() %></td>
-                            <td><%= entry.getValue() %></td>
-                        </tr>
-                    <% } %>
-                <% } else { %>
-                    <tr>
-                        <td colspan="2" class="no-data">Không có dữ liệu</td>
-                    </tr>
-                <% } %>
-            </tbody>
-        </table>
-    </div>
-    <%-- Top Customers Table --%>
-    <div class="table-container">
-        <h1>Thống Kê Khách Hàng</h1>
-        <h2>Danh Sách Khách Hàng Có Tổng Chi Tiêu Cao Nhất</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Tên Khách Hàng</th>
-                    <th>Tổng Chi Tiêu (VNĐ)</th>
+                    <th>Rank</th>
+                    <th>Tên Người Dùng</th>
+                    <th>Số Vé Mua</th>
                 </tr>
             </thead>
             <tbody>
                 <% 
-                    List<String> topCustomers = (List<String>) request.getAttribute("topCustomers");
-                    if (topCustomers != null && !topCustomers.isEmpty()) {
-                        for (String customer : topCustomers) {
+                    List<Map<String, Object>> topUsers = (List<Map<String, Object>>) request.getAttribute("topUsers");
+                    int rank = 1;
+                    for (Map<String, Object> user : topUsers) {
                 %>
                 <tr>
-                    <td><%= customer.split(" - ")[0] %></td>
-                    <td><%= customer.split(" - ")[1] %></td>
+                    <td>
+                        <span class="<%= rank == 1 ? "rank1" : (rank == 2 ? "rank2" : "rank3") %>">
+                            <%= rank == 1 ? "🥇" : (rank == 2 ? "🥈" : "🥉") %>
+                        </span>
+                    </td>
+                    <td><%= user.get("ho_ten") %></td>
+                    <td><%= user.get("so_ve_mua") %></td>
                 </tr>
                 <% 
+                        rank++;
+                    } 
+                %>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section-container top-routes">
+        <h2>Top 3 Tuyến Đường Có Nhiều Người Đặt Vé Nhất</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Tuyến Đường</th>
+                    <th>Số Vé Đặt</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% 
+                    Map<String, Integer> topRoute = (Map<String, Integer>) request.getAttribute("topRoute");
+                    if (topRoute != null && !topRoute.isEmpty()) {
+                        int ranka = 1;
+                        for (Map.Entry<String, Integer> entry : topRoute.entrySet()) {
+                %>
+                <tr>
+                    <td>
+                        <span class="<%= ranka == 1 ? "rank1" : (ranka == 2 ? "rank2" : "rank3") %>">
+                            <%= ranka == 1 ? "🥇" : (ranka == 2 ? "🥈" : "🥉") %>
+                        </span>
+                    </td>
+                    <td><%= entry.getKey() %></td>
+                    <td><%= entry.getValue() %></td>
+                </tr>
+                <% 
+                            ranka++;
                         }
                     } else {
                 %>
                 <tr>
-                    <td colspan="2" class="no-data">Không có dữ liệu</td>
+                    <td colspan="3">Không có dữ liệu về tuyến đường.</td>
                 </tr>
                 <% 
                     }
@@ -234,5 +289,6 @@
             </tbody>
         </table>
     </div>
+
 </body>
 </html>

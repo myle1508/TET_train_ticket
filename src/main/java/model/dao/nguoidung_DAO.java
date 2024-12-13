@@ -37,7 +37,7 @@ public class nguoidung_DAO {
         return role ;
     }
     
-    // Lấy danh sách người dùng
+    // Lấy danh sách người dùng mua
     public ArrayList<nguoidung> getList() {
         ArrayList<nguoidung> result = new ArrayList<>();
         Connection cnn = null;
@@ -47,7 +47,7 @@ public class nguoidung_DAO {
         try {
             cnn = getConnection();
             sm = cnn.createStatement();
-            String sql = "SELECT * FROM nguoidung";
+            String sql = "SELECT * FROM nguoidung WHERE vai_tro = 2";
             rs = sm.executeQuery(sql);
             while (rs.next()) {
             	nguoidung nguoidung = new nguoidung();

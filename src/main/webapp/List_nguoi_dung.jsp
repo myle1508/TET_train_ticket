@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page session="true" %>
 <%@ page import="java.util.List" %>
 <%@ page import="model.bean.*" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Danh sách vé đã đặt</title>
+    <title>Quản lý người dùng</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -68,67 +69,47 @@
         .button:hover {
             background-color: #FF9800;
         }
-
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 16px;
-            color: #777;
-        }
-
-        .footer a {
-            color: #4caf50;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-
-        .footer a:hover {
-            color: #388e3c;
-        }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1>Danh sách vé đã đặt</h1>
+        <h1>Quản lý người dùng</h1>
     </div>
 
     <div class="container">
-        <h2>Danh sách vé</h2>
-        <%
-            List<ve> ves = (List<ve>) request.getAttribute("List_ve");
-            if (ves != null && !ves.isEmpty()) {
-        %>
+        <h2>Danh sách người dùng</h2>
         <table>
             <thead>
                 <tr>
-                    <th>Mã vé</th>
-                    <th>Mã lịch trình</th>
-                    <th>Mã người dùng</th>
-                    <th>Số ghế</th>
-                    <th>Trạng thái</th>
-                    <th>Chi tiết</th>
+                    <th>Họ và tên</th>
+                    <th>Email</th>
+                    <th>Số điện thoại</th>
+                    <th>Xem danh sách vé đã đặt</th>
                 </tr>
             </thead>
             <tbody>
-                <% for (ve ve : ves) { %>
-                <tr>
-                    <td><%= ve.get_ma_ve() %></td>
-                    <td><%= ve.get_ma_lich_trinh() %></td>
-                    <td><%= ve.get_ma_nguoi_dung() %></td>
-                    <td><%= ve.get_so_ghe() %></td>
-                    <td><%= ve.get_trang_thai()? "Hoạt động" : "Hết hạn" %></td>
-                    <td>
-                        <a href="admin?action=detail_ve&ma_ve=<%= ve.get_ma_ve() %>" class="button">xxx</a>
-                    </td>
-                </tr>
-                <% } %>
+                <%
+                    // Giả sử bạn đã có một danh sách người dùng từ cơ sở dữ liệu
+                    List<nguoidung> users = (List<nguoidung>) request.getAttribute("List_nguoi_dung");
+
+                    if (users != null) {
+                        for (nguoidung user : users) {
+                %>
+                    <tr>
+                        <td><%= user.get_ho_ten()%></td>
+                        <td><%= user.get_email()%></td>
+                        <td><%= user.get_so_dien_thoai()%></td>
+                        <td>
+                            <a href="admin?action=view_ve_user&ma_nguoi_dung=<%= user.get_ma_nguoi_dung() %>" class="button">xxx</a>
+                        </td>
+                    </tr>
+                <%
+                        }
+                    }
+                %>
             </tbody>
         </table>
-        <% } else { %>
-        <p>Không có vé nào để hiển thị.</p>
-        <% } %>
     </div>
 </body>
 </html>

@@ -31,4 +31,8 @@ public class tuyenduong_BO {
 	{
         return tuyenduong_DAO.searchtuyenduong(searchOption, searchValue, searchValue1);
     }
+	public boolean checkRouteExists(String diemXuatPhat, String diemKetThuc) throws ClassNotFoundException 
+	{
+		return tuyenduong_DAO.checkRouteExists(diemXuatPhat, diemKetThuc);
+	}
 }

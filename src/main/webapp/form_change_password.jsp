@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList,model.bean.nguoidung;" %>
+<%@page import="model.bean.*"%>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="img/1.png">
-    <title>Thay đổi mật khẩu admin</title>
+    <title>Thay đổi mật khẩu</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -84,24 +84,48 @@
         a:hover {
             background-color: #d32f2f;
         }
-
     </style>
     <script>
         function checkpass() {
-            var errorField = document.getElementById("id-error");
+            var errorField = document.getElementById("id-error1");
             var passwordField = document.getElementById("newpassword");
-            var passwordField1 = document.getElementById("newpassword_repeat");
+            var passwordRepeatField = document.getElementById("newpassword_repeat");
             var submitButton = document.querySelector("button[type='submit']");
 
-            if(passwordField.value != passwordField1.value){
+            if (passwordField.value !== passwordRepeatField.value) {
                 errorField.textContent = "Mật khẩu nhập lại không khớp.";
                 submitButton.disabled = true;
-            }
-            else{
-            	errorField.textContent = "";
+            } else {
+                errorField.textContent = "";
                 submitButton.disabled = false;
             }
-        };
+        }
+
+        function checkpasscu() {
+            var ten_dang_nhap = document.getElementById("ten_dang_nhap").value;
+            var mat_khau = document.getElementById("mat_khau").value;
+            var errorField = document.getElementById("id-error");
+            var submitButton = document.querySelector("button[type='submit']");
+
+            var httpRequest = new XMLHttpRequest();
+            httpRequest.open("GET", "admin?action=checkpass&ten_dang_nhap=" + encodeURIComponent(ten_dang_nhap) + "&mat_khau=" + encodeURIComponent(mat_khau), true);
+
+            httpRequest.onload = function () {
+                if (httpRequest.status === 200) {
+                    var response = JSON.parse(httpRequest.responseText);
+
+                    if (!response.exists) {
+                        errorField.textContent = "Sai mật khẩu cũ.";
+                        submitButton.disabled = true;
+                    } else {
+                        errorField.textContent = "";
+                        submitButton.disabled = false;
+                    }
+                }
+            };
+
+            httpRequest.send();
+        }
     </script>
 </head>
 <body>
@@ -109,30 +133,29 @@
         <h2>Thay đổi mật khẩu</h2>
 <%
         nguoidung nguoidung = (nguoidung) request.getAttribute("nguoidung");
-    %>
-        <form action="admin?action=doi_mk" method="post">            
+%>
+        <form action="admin?action=doi_mk" method="post">
             <div class="input-group">
-			    <label for="username">Tên đăng nhập:</label>
-			    <input type="text" id="username" name="username" value="<%= nguoidung.get_ten_dang_nhap() %>"  required>
-			    <span id="id-error" style="color: red; font-size: 14px; margin-left: -20px;"></span>
-			</div>		
-			<div class="input-group">
-			    <label for="password">Mật khẩu cũ:</label>
-			    <input type="password" id="password" name="password"  required>
-			</div>
-			<div class="input-group">
-			    <label for="newpassword">Mật khẩu mới:</label>
-			    <input type="password" id="newpassword" name="newpassword" required>
-			</div>
-			<div class="input-group">
-			    <label for="newpassword_repeat">Nhập lại mật khẩu mới:</label>
-			    <input type="password" id="newpassword_repeat" name="newpassword_repeat" onchange="checkpass()"  required>
-			    <span id="id-error1" style="color: red; font-size: 14px; margin-left: -20px;"></span>
-			</div>
+                <label for="ten_dang_nhap">Tên đăng nhập:</label>
+                <input type="text" id="ten_dang_nhap" name="ten_dang_nhap" value="<%= nguoidung.get_ten_dang_nhap() %>" readonly required>
+            </div>
+            <div class="input-group">
+                <label for="mat_khau">Mật khẩu cũ:</label>
+                <input type="password" id="mat_khau" name="mat_khau" onchange="checkpasscu()" required>
+                <span id="id-error" style="color: red; font-size: 14px;"></span>
+            </div>
+            <div class="input-group">
+                <label for="newpassword">Mật khẩu mới:</label>
+                <input type="password" id="newpassword" name="newpassword" required>
+            </div>
+            <div class="input-group">
+                <label for="newpassword_repeat">Nhập lại mật khẩu mới:</label>
+                <input type="password" id="newpassword_repeat" name="newpassword_repeat" onchange="checkpass()" required>
+                <span id="id-error1" style="color: red; font-size: 14px;"></span>
+            </div>
             <div class="form-actions">
-                <button type="submit" disabled>Thêm</button>
+                <button type="submit" disabled>Cập nhật</button>
                 <a href="javascript:window.history.back()">Quay lại</a>
-
             </div>
         </form>
     </div>

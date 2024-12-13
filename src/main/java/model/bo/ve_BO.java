@@ -16,11 +16,11 @@ public class ve_BO {
 	{
 		return ve_DAO.get_ve_By_ma_ve(ma_ve);
 	}
-	public ve get_ve_By_ma_nguoi_dung(int ma_nguoi_dung)
+	public ArrayList<ve>  get_ve_By_ma_nguoi_dung(int ma_nguoi_dung)
 	{
 		return ve_DAO.get_ve_By_ma_nguoi_dung(ma_nguoi_dung);
 	}
-	public ve get_ve_By_ma_lich_trinh(int ma_lich_trinh)
+	public ArrayList<ve>  get_ve_By_ma_lich_trinh(int ma_lich_trinh)
 	{
 		return ve_DAO.get_ve_By_ma_lich_trinh(ma_lich_trinh);
 	}
