@@ -6,6 +6,8 @@ public class ve {
 	private int ma_lich_trinh;
 	private int so_ghe;
 	private boolean trang_thai;
+	private int tong_tien;
+	private  String thanh_toan;
 	
 	public int get_ma_ve()
 	{
@@ -23,10 +25,19 @@ public class ve {
 	{
 		return so_ghe;
 	}
+	public int get_tong_tien()
+	{
+		return tong_tien;
+	}
+	public String get_thanh_toan()
+	{
+		return thanh_toan;
+	}
 	public boolean get_trang_thai()
 	{
 		return trang_thai;
 	}
+	
 	
 	public void set_ma_ve(int ma_ve) 
 	{
@@ -47,5 +58,13 @@ public class ve {
 	public void set_trang_thai(boolean trang_thai) 
 	{
 		this.trang_thai = trang_thai;
+	}
+	public void set_tong_tien(int tong_tien) 
+	{
+		this.tong_tien = tong_tien;
+	}
+	public void set_thanh_toan(String thanh_toan) 
+	{
+		this.thanh_toan = thanh_toan;
 	}
 }

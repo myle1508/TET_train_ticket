@@ -9,10 +9,10 @@ import model.dao.nguoidung_DAO;
 public class nguoidung_BO {
 	nguoidung_DAO nguoidung_DAO = new nguoidung_DAO();
 	
-	public boolean isValidUser(String userName, String passWord) throws ClassNotFoundException, SQLException
-	{
-		return nguoidung_DAO.isExistUser(userName, passWord);
+	public boolean isValidUser(String userName, String passWord) throws ClassNotFoundException, SQLException {
+	    return nguoidung_DAO.isExistUser(userName, passWord);
 	}
+
 	public ArrayList<nguoidung> getList()
 	{
 		return nguoidung_DAO.getList();
@@ -29,4 +29,8 @@ public class nguoidung_BO {
 	{
         return nguoidung_DAO.searchnguoidung(searchOption, searchValue);
     }
+	public nguoidung getUserByUsernameAndPassword(String username, String password) {
+	    return nguoidung_DAO.getUserByUsernameAndPassword(username, password);
+	}
+
 }

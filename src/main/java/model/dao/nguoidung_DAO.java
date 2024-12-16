@@ -8,34 +8,29 @@ import model.bean.nguoidung;
 public class nguoidung_DAO {
 	private Connection getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost:3307/btap", "root", "");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/btap", "root", "");
     }
 	
 	// Kiểm tra đăng nhập nè
-    public boolean isExistUser(String username, String password) {
-        boolean ktra = false;
-        Connection cnn = null;
-        Statement sm = null;
-        ResultSet rs = null;
-        try {
-            cnn = getConnection();
-            sm = cnn.createStatement();
-            String sql = "SELECT * FROM nguoidung";
-            rs = sm.executeQuery(sql);
-            while (rs.next()) {
-                if (username.equals(rs.getString(1)) && password.equals(rs.getString(2))) {
-                    ktra = true;
-                    break;
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Error in isExistUser: " + e.getMessage());
-        } finally {
-            closeResources(rs, sm, cnn);
-        }
-        return ktra;
-    }
-    
+	public boolean isExistUser(String username, String password) {
+	    boolean isValid = false;
+	    String sql = "SELECT * FROM nguoidung WHERE ten_dang_nhap = ? AND mat_khau = ?";
+	    try (Connection cnn = getConnection();
+	         PreparedStatement ps = cnn.prepareStatement(sql)) {
+	        
+	        ps.setString(1, username);
+	        ps.setString(2, password); 
+	        try (ResultSet rs = ps.executeQuery()) {
+	            if (rs.next()) {
+	                isValid = true; 
+	            }
+	        }
+	    } catch (Exception e) {
+	        System.out.println("Error in isExistUser: " + e.getMessage());
+	    }
+	    return isValid;
+	}
+
     // Lấy danh sách người dùng
     public ArrayList<nguoidung> getList() {
         ArrayList<nguoidung> result = new ArrayList<>();
@@ -180,6 +175,38 @@ public class nguoidung_DAO {
             closeResources(ps, cnn);
         }
         return resultList;
+    }
+
+    public nguoidung getUserByUsernameAndPassword(String username, String password) {
+        nguoidung user = null;
+        Connection cnn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            cnn = getConnection();
+            String sql = "SELECT * FROM nguoidung WHERE ten_dang_nhap = ? AND mat_khau = ?";
+            ps = cnn.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                user = new nguoidung();
+                user.set_ma_nguoi_dung(rs.getInt("ma_nguoi_dung"));
+                user.set_ten_dang_nhap(rs.getString("ten_dang_nhap"));
+                user.set_mat_khau(rs.getString("mat_khau"));
+                user.set_ho_ten(rs.getString("ho_ten"));
+                user.set_email(rs.getString("email"));
+                user.set_so_dien_thoai(rs.getString("so_dien_thoai"));
+                user.set_vai_tro(rs.getInt("vai_tro"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeResources(rs, ps, cnn);
+        }
+        return user;
     }
 
     private void closeResources(ResultSet rs, Statement sm, Connection cnn) {

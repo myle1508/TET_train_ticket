@@ -1,7 +1,9 @@
 package model.bo;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import model.bean.lichtrinh;
 import model.dao.lichtrinh_DAO;
@@ -33,4 +35,8 @@ public class lichtrinh_BO {
 	{
         return lichtrinh_DAO.searchlichtrinh(searchOption, searchValue);
     }
+	public lichtrinh get_Lich_Trinh_By_Id(int malichtrinh) {
+	    return lichtrinh_DAO.getLichTrinhById(malichtrinh);
+	}
+	
 }

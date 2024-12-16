@@ -1,6 +1,7 @@
 package model.bo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.bean.ve;
 import model.dao.ve_DAO;
@@ -36,4 +37,8 @@ public class ve_BO {
 	{
 		return ve_DAO.deleteve(ma_ve);
 	}
+	 public List<ve> getVeListByMaNguoiDung(int maNguoiDung) {
+	        return ve_DAO.get_ve_list_By_ma_nguoi_dung(maNguoiDung);
+	    }
+	
 }

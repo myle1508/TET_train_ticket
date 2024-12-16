@@ -4,8 +4,10 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import model.bean.lichtrinh;
+import model.bean.tuyenduong;
 
 public class lichtrinh_DAO {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -78,6 +80,47 @@ public class lichtrinh_DAO {
         return result;
     }
     
+    public lichtrinh getLichTrinhById(int maLichTrinh) {
+        lichtrinh lichtrinh = null;
+        Connection cnn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            cnn = getConnection();
+            String query = "SELECT lt.*, td.diem_xuat_phat, td.diem_ket_thuc, td.gia_ve " +
+                           "FROM lichtrinh lt " +
+                           "JOIN tuyenduong td ON lt.ma_tuyen_duong = td.ma_tuyen_duong " +
+                           "WHERE lt.ma_lich_trinh = ?";
+            ps = cnn.prepareStatement(query);
+            ps.setInt(1, maLichTrinh);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                lichtrinh = new lichtrinh();
+                lichtrinh.set_ma_lich_trinh(rs.getInt("ma_lich_trinh"));
+                lichtrinh.set_ma_tuyen_duong(rs.getInt("ma_tuyen_duong"));
+                lichtrinh.set_thoi_gian_xuat_phat(rs.getTimestamp("thoi_gian_xuat_phat"));
+                lichtrinh.set_danh_sach_ghe(rs.getString("danh_sach_ghe"));
+                lichtrinh.set_so_ghe_trong(rs.getInt("so_ghe_trong"));
+                lichtrinh.set_trang_thai(rs.getBoolean("trang_thai"));
+
+                // Xử lý thông tin từ bảng tuyenduong (nếu cần sử dụng ở nơi khác)
+                String diemXuatPhat = rs.getString("diem_xuat_phat");
+                String diemKetThuc = rs.getString("diem_ket_thuc");
+                int giaVe = rs.getInt("gia_ve");
+
+              
+            }
+        } catch (Exception e) {
+            System.out.println("Error in getLichTrinhById: " + e.getMessage());
+        } finally {
+            closeResources(rs, ps, cnn);
+        }
+
+        return lichtrinh;
+    }
+
     // Lấy lịch trình với mã lịch trình
     public lichtrinh get_lich_trinh_by_ma_lich_trinh(int id) {
     	lichtrinh lichtrinh = null;
@@ -218,4 +261,6 @@ public class lichtrinh_DAO {
     private void closeResources(Statement sm, Connection cnn) {
         closeResources(null, sm, cnn);
     }
+    
+
 }

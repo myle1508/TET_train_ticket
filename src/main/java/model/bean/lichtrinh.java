@@ -10,7 +10,10 @@ public class lichtrinh {
 	private int so_ghe_trong;
 	private boolean trang_thai;
 	
-	
+	 private String diemDi;
+	  private String diemDen;
+	    private int giaVe;
+
 	public int get_ma_lich_trinh()
 	{
 		return ma_lich_trinh;
@@ -60,4 +63,28 @@ public class lichtrinh {
 	{
 		this.trang_thai = trang_thai;
 	}
+	
+	public String getDiemDi() {
+        return diemDi;
+    }
+
+    public void setDiemDi(String diemDi) {
+        this.diemDi = diemDi;
+    }
+
+    public String getDiemDen() {
+        return diemDen;
+    }
+
+    public void setDiemDen(String diemDen) {
+        this.diemDen = diemDen;
+    }
+
+    public int getGiaVe() {
+        return giaVe;
+    }
+
+    public void setGiaVe(int giaVe) {
+        this.giaVe = giaVe;
+    }
 }
